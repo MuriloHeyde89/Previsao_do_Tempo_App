@@ -6,7 +6,7 @@ Um projeto em Python onde o usuário coloca a localização desejada para obter 
 
 ## Lista de Tarefas
 
-[x] 
+[x] Instalar bibliotecas (listadas nas ferramentas)
 
 [x] 
 
@@ -15,13 +15,15 @@ Um projeto em Python onde o usuário coloca a localização desejada para obter 
 [x] 
 
 [x] 
-
 
 ## Ferramentas usadas no Projeto
 
 [x] GitHub
 [x] Tkinter - Parte gráfica (GUI) do aplicativo
 [x] Request - Para consumir a API do clima
+[x] Image - 
+[x] Pytz - 
+[x] Pycountry-convert - 
 [x] JSON - Para obter os dados do clima
 [x] VsCode
 [x] Python
