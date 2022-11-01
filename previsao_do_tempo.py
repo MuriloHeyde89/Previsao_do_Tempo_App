@@ -81,7 +81,7 @@ def country_to_continent(country_name):
     country_continent_name = pc.convert_continent_code_to_continent_name(country_continent_code)
     return country_continent_name
 
-continente = country_to_continent(pais)
+continente = country_to_continent()
 
 l_cidade['text'] = cidade + " - " + pais + " / " + continente
 
@@ -102,6 +102,29 @@ l_descricao['text'] = descricao
 
 zona_priodo = datetime.now(zona)
 zona_priodo = zona_priodo.strftime("%H")
+
+
+global imagem 
+
+zona_priodo = int(zona_priodo)
+if zona_priodo <= 5:
+    imagem = Image.open('images/lua.png') #adicionar imagem na pasta
+    fundo = fundo_noite
+elif zona_priodo <= 11:
+    imagem = Image.open('images/sol_dia.png') #adicionar imagem na pasta
+    fundo = fundo_dia
+elif zona_priodo <= 17:
+    imagem = Image.open('images/sol_tarde.png') #adicionar imagem na pasta
+    fundo = fundo_tarde
+elif zona_priodo <= 23:
+    imagem = Image.open('images/lua.png') #adicionar imagem na pasta
+    fundo = fundo_noite
+else:
+    pass
+
+
+
+
 
 
 
