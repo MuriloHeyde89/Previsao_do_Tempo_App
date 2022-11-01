@@ -87,6 +87,24 @@ l_cidade['text'] = cidade + " - " + pais + " / " + continente
 
 l_data['text'] = zona_horas
 
+l_pressao['text'] = "Pressão : "+ str(pressao)
+
+l_umidade['text'] = umidade
+l_umidade_simbol['text'] = "%"
+l_umidade_nome['text'] = "Humidade"
+
+l_velocidade['text'] = "velocidade do vento : "+ str(velocidade)
+
+l_descricao['text'] = descricao
+
+
+#representação sol e lua
+
+zona_priodo = datetime.now(zona)
+zona_priodo = zona_priodo.strftime("%H")
+
+
+
 
 
 
