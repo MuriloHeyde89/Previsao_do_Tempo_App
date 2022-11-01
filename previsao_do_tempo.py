@@ -41,4 +41,53 @@ frame_principal.grid(row=1, column=0)
 frame_quadros = Frame(janela, width=320, height=300,bg=fundo, pady=12, padx=0, relief="flat",)
 frame_quadros.grid(row=2, column=0, sticky=NW)
 
+style = ttk.Style(frame_principal)
+style.theme_use("clam")
+
+def info():
+    weather_key = '74db8d03761c1e007553ccbc6d73fe92'
+    cidade = e_local.get()
+    api_link = "https://api.openweathermap.org/data/2.5/weather?"+cidade+"&appid="+weather_key+"&lang=pt"
+
+    #HTTP request
+    r=requests.get(api_link)
+
+    #Converter os dados em 'r' em dicionário
+    data=r.json()
+
+    #zona, pais, horas
+    pais_codigo = data['sys']['country']
+    zona_fuso=pytz.country_timezones[pais_codigo]
+
+    #pais
+    pais = pytz.country_names[pais_codigo]
+
+    #data
+    zona = pytz.timezone(zona_fuso[0])
+    zona_horas = datetime.now(zona)
+    zona_horas = zona_horas.strftime("%d %m %y | %H:%M:%S %p")
+
+    # ---
+    tempo = data["main"]["temp"]
+    pressao = data["main"]["pressure"]
+    umidade = data["main"]["humidity"]
+    velocidade = data["wind"]["speed"]
+    descricao = data["weather"][0]["description"]
+
+    #alterando informações
+def country_to_continent(country_name):
+    country_alpha2 = pc.country_name_to_country_alpha2(country_name)
+    country_continent_code = pc.country_alpha2_to_continent_code(country_alpha2)
+    country_continent_name = pc.convert_continent_code_to_continent_name(country_continent_code)
+    return country_continent_name
+
+continente = country_to_continent(pais)
+
+l_cidade['text'] = cidade + " - " + pais + " / " + continente
+
+l_data['text'] = zona_horas
+
+
+
+
 janela.mainloop()
