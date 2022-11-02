@@ -122,6 +122,14 @@ elif zona_priodo <= 23:
 else:
     pass
 
+imagem = imagem.resize((130,130), Image.ANTIALIAS)
+imagem = ImageTk.PhotoImage(imagem)
+l_icon1 = Label(frame_quadros, image=imagem, compound=LEFT, bg=fundo, fg="white", front=('Ivy 10 bold'), anchor="nw", relief=FLAT)
+l_icon1.place(x=160, y=50)
+
+
+
+
 
 
 
