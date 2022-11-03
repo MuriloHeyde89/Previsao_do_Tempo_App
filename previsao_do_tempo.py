@@ -128,6 +128,22 @@ l_icon1 = Label(frame_quadros, image=imagem, compound=LEFT, bg=fundo, fg="white"
 l_icon1.place(x=160, y=50)
 
 
+#Alterar a cor do fundo
+janela.configure(bg=fundo)
+frame_quadros.configure(bg=fundo)
+frame_principal.configure(bg=fundo)
+
+l_cidade['bg'] = fundo
+l_data['bg'] = fundo
+l_pressao['bg'] = fundo
+l_umidade['bg'] = fundo
+l_umidade_simbol['bg'] = fundo
+l_umidade_nome['bg'] = fundo
+l_velocidade['bg'] = fundo
+l_descricao['bg'] = fundo
+
+
+
 
 
 
