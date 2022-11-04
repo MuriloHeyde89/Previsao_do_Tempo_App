@@ -1,4 +1,4 @@
-#Bibliotecas
+#Instalar Bibliotecas
 from tkinter import *
 from time import sleep
 import requests
