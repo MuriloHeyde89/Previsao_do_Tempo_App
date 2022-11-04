@@ -1,158 +1,43 @@
-import tkinter
 from tkinter import *
-from tkinter import ttk
+from time import sleep
 
-#Importar bibliotecas
-from PIL import ImageTk, Image
+# Biblioteca para acessar os dados de uma API
+
 import requests
-import datetime
-import time
-
-from datetime import datetime
-import pytz
-import pycountry_convert as pc
-
-#Dados
-import json
-
-#Cores
-co0 = "#444466"     #preta
-c01 = "#feffff"     #branca
-c02 = "#6f9fbd"     #azul
-
-fundo_dia = "#6cc4cc"
-fundo_noite = "484f60"
-fundo_tarde = "#bfb86d"
-
-fundo = fundo_dia
 
 
-janela = Tk()
-janela.title('')
-janela.geometry('320x350')
-janela.configure(bg=fundo)
-
-#Frames
-ttk.Separator(janela, orient=HORIZONTAL).grid(row=0, columnspan=1, ipadx=157)
-
-frame_principal = Frame(janela, width=320, height=50,bg=c01, pady=0, padx=0, relief="flat",)
-frame_principal.grid(row=1, column=0)
-
-frame_quadros = Frame(janela, width=320, height=300,bg=fundo, pady=12, padx=0, relief="flat",)
-frame_quadros.grid(row=2, column=0, sticky=NW)
-
-style = ttk.Style(frame_principal)
-style.theme_use("clam")
-
-def info():
-    weather_key = '74db8d03761c1e007553ccbc6d73fe92'
-    cidade = e_local.get()
-    api_link = "https://api.openweathermap.org/data/2.5/weather?"+cidade+"&appid="+weather_key+"&lang=pt"
-
-    #HTTP request
-    r=requests.get(api_link)
-
-    #Converter os dados em 'r' em dicionário
-    data=r.json()
-
-    #zona, pais, horas
-    pais_codigo = data['sys']['country']
-    zona_fuso=pytz.country_timezones[pais_codigo]
-
-    #pais
-    pais = pytz.country_names[pais_codigo]
-
-    #data
-    zona = pytz.timezone(zona_fuso[0])
-    zona_horas = datetime.now(zona)
-    zona_horas = zona_horas.strftime("%d %m %y | %H:%M:%S %p")
-
-    # ---
-    tempo = data["main"]["temp"]
-    pressao = data["main"]["pressure"]
-    umidade = data["main"]["humidity"]
-    velocidade = data["wind"]["speed"]
-    descricao = data["weather"][0]["description"]
-
-    #alterando informações
-def country_to_continent(country_name):
-    country_alpha2 = pc.country_name_to_country_alpha2(country_name)
-    country_continent_code = pc.country_alpha2_to_continent_code(country_alpha2)
-    country_continent_name = pc.convert_continent_code_to_continent_name(country_continent_code)
-    return country_continent_name
-
-continente = country_to_continent()
-
-l_cidade['text'] = cidade + " - " + pais + " / " + continente
-
-l_data['text'] = zona_horas
-
-l_pressao['text'] = "Pressão : "+ str(pressao)
-
-l_umidade['text'] = umidade
-l_umidade_simbol['text'] = "%"
-l_umidade_nome['text'] = "Humidade"
-
-l_velocidade['text'] = "velocidade do vento : "+ str(velocidade)
-
-l_descricao['text'] = descricao
+from doctest import master
 
 
-#representação sol e lua
-
-zona_priodo = datetime.now(zona)
-zona_priodo = zona_priodo.strftime("%H")
-
-
-global imagem 
-
-zona_priodo = int(zona_priodo)
-if zona_priodo <= 5:
-    imagem = Image.open('images/lua.png') #adicionar imagem na pasta
-    fundo = fundo_noite
-elif zona_priodo <= 11:
-    imagem = Image.open('images/sol_dia.png') #adicionar imagem na pasta
-    fundo = fundo_dia
-elif zona_priodo <= 17:
-    imagem = Image.open('images/sol_tarde.png') #adicionar imagem na pasta
-    fundo = fundo_tarde
-elif zona_priodo <= 23:
-    imagem = Image.open('images/lua.png') #adicionar imagem na pasta
-    fundo = fundo_noite
-else:
-    pass
-
-imagem = imagem.resize((130,130), Image.ANTIALIAS)
-imagem = ImageTk.PhotoImage(imagem)
-l_icon1 = Label(frame_quadros, image=imagem, compound=LEFT, bg=fundo, fg="white", front=('Ivy 10 bold'), anchor="nw", relief=FLAT)
-l_icon1.place(x=160, y=50)
-
-
-#Alterar a cor do fundo
-janela.configure(bg=fundo)
-frame_quadros.configure(bg=fundo)
-frame_principal.configure(bg=fundo)
-
-l_cidade['bg'] = fundo
-l_data['bg'] = fundo
-l_pressao['bg'] = fundo
-l_umidade['bg'] = fundo
-l_umidade_simbol['bg'] = fundo
-l_umidade_nome['bg'] = fundo
-l_velocidade['bg'] = fundo
-l_descricao['bg'] = fundo
+def bot_click():
+    cidade = entrada.get()
+    api_key = '80a4ad981dc134d36cc8ddea8b67a00a'
+    link = f'https://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={api_key}&lang=pt_br'
+    requisicao = requests.get(link)
+    requisicao_dic = requisicao.json()
+    tempo = requisicao_dic['weather'][0]['description']
+    temperatura = int(requisicao_dic['main']['temp'] - 273.15)
+    umidade = requisicao_dic['main']['humidity']
+    resultado['text'] = f'Condições climáticas: {tempo} \n Temperatura: {temperatura}ºC \n  Umidade: {umidade}%'
 
 
 
+master = Tk()
+master.geometry('490x560+650+200')
+master.title('Previsão do tempo')
+fundo = PhotoImage(file='tela.png')
+fundo_tela = Label(master, image=fundo)
+fundo_tela.pack()
+texto_inicial = Label(master, text='Previsão do tempo', font=('Verdana', 17, 'bold'), justify=CENTER, bg='#D9D9D9')
+texto_inicial.place(width=350, height=50, x=100, y=50)
+texto_dois = Label(master, text='Digite abaixo o nome da cidade', font=('Verdana', 12, 'bold'), justify=CENTER, bg='#D9D9D9')
+texto_dois.place(width=280, height=50, x=110, y=140)
+entrada = Entry(master, font=('Verdana', 12, 'bold'), bg='#D9D9D9', justify=CENTER)
+entrada.place(width=280, height=50, x=110, y=200)
+botao = Button(master, text='Pesquisar', font=('Verdana', 12, 'bold'), bg='#D16D2E', command=bot_click)
+botao.place(width=100, height=50, x=200, y=260)
+resultado = Label(master, justify=CENTER)
+resultado.place(width=300, height=200, x=100, y=330)
 
 
-
-
-
-
-
-
-
-
-
-janela.mainloop()
+master.mainloop()
