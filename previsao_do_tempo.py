@@ -20,7 +20,7 @@ def bot_click():
 
 #Visual da Aplicação
 master = Tk()
-master.geometry('490x560+650+200')
+master.geometry('490x580+650+200')
 master.title('Previsão do tempo')
 fundo = PhotoImage(file='tela.png')
 fundo_tela = Label(master, image=fundo)
@@ -35,8 +35,6 @@ botao = Button(master, text='Pesquisar', font=('Verdana', 12, 'bold'), bg='#D16D
 botao.place(width=100, height=50, x=200, y=260)
 resultado = Label(master, justify=CENTER)
 resultado.place(width=300, height=200, x=100, y=330)
-
-
 
 
 
