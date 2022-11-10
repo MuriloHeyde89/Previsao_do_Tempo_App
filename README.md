@@ -6,11 +6,11 @@ Um projeto em Python onde o usuário coloca a localização desejada para obter 
 
 ## Lista de Tarefas
 
-[x] Instalar bibliotecas (listadas nas ferramentas)
+[x] Instalar bibliotecas (listadas nas ferramentas);
 
-[x] Criar aplicação com API de previsão do tempo
+[x] Criar aplicação com API de previsão do tempo - O API utilizado foi da plataforma OpenWather, do qual é necessário o registro para receber sua Key, assim podendo fazer a chamada do API com os dados metereologicos;
 
-[x] Criar parte gráfica e visual da aplicação
+[x] Criar parte gráfica e visual da aplicação - utilizando a biblioteca Tkinter
 
 
 ## Ferramentas usadas no Projeto
